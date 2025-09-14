@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.1.13",
+    "@emotion/is-prop-valid": "^1.4.0",
     "@google/genai": "^1.13.0",
     "@next/bundle-analyzer": "^15.2.2",
     "@radix-ui/react-dialog": "^1.1.6",

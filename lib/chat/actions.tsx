@@ -79,7 +79,7 @@ export const AI = createAI<AIState, UIState, AIActions>({
   actions: {
     continueConversation,
   },
-  onSetAIState: async ({ state, done }) => {
+  onSetAIState: async ({ state: _state, done: _done }) => {
     "use server"
     // No longer saving conversations to database
   },
