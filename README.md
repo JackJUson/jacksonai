@@ -1,3 +1,3 @@
-# jacksonai
+# JacksonAi
 
-Welcome to jackson ai. 
+Welcome to Jackson Ai
