@@ -1,0 +1,151 @@
+.lightning {
+  --shadow: #c6c6c6;
+  --glare: white;
+  --transition: 0.2s;
+
+  --font-size-min: 16;
+  --font-size-max: 20;
+  --font-ratio-min: 1.2;
+  --font-ratio-max: 1.33;
+  --font-width-min: 375;
+  --font-width-max: 1500;
+
+  --font-level: 5;
+  --font-size: 1em;
+  --padding: 0.12em;
+  padding: var(--padding) calc(var(--padding) * 2);
+  border-radius: 0.25em;
+  text-decoration: none;
+  color: transparent;
+  position: relative;
+  font-weight: 600;
+  cursor: pointer;
+  will-change: transform;
+
+  --hover: 0.4;
+  --pos: 0;
+}
+
+.dark .lightning {
+  --shadow: #494949;
+  --glare: hsl(0 0% 100% / 0.75);
+}
+
+.lightning:is(:hover, :focus-visible) {
+  --hover: 1;
+  --pos: 1;
+}
+
+.lightning:active {
+  --hover: 0;
+}
+
+.lightning:active .lightning-text {
+  --hover: 0;
+  --pos: 1;
+}
+
+.lightning-text-shadow {
+  display: inline-block;
+  transition: all 0.2s;
+  text-decoration: none;
+  text-shadow:
+    calc(var(--hover) * (var(--font-size) * -0)) calc(var(--hover) * (var(--font-size) * 0))
+      var(--shadow),
+    calc(var(--hover) * (var(--font-size) * -0.02)) calc(var(--hover) * (var(--font-size) * 0.02))
+      var(--shadow),
+    calc(var(--hover) * (var(--font-size) * -0.04)) calc(var(--hover) * (var(--font-size) * 0.04))
+      var(--shadow),
+    calc(var(--hover) * (var(--font-size) * -0.06)) calc(var(--hover) * (var(--font-size) * 0.06))
+      var(--shadow),
+    calc(var(--hover) * (var(--font-size) * -0.08)) calc(var(--hover) * (var(--font-size) * 0.08))
+      var(--shadow),
+    calc(var(--hover) * (var(--font-size) * -0.1)) calc(var(--hover) * (var(--font-size) * 0.1))
+      var(--shadow);
+  transform: translate(
+    calc(var(--hover) * (var(--font-size) * 0.1)),
+    calc(var(--hover) * (var(--font-size) * -0.1))
+  );
+}
+
+/* ⚡ Simplified lightning flicker animation — flashes only, no sweep */
+@keyframes lightning-flash {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.15;
+  }
+  40% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.lightning-text {
+  position: absolute;
+  inset: var(--padding) calc(var(--padding) * 2);
+  background: hsl(var(--primary)); /* No moving gradient anymore */
+  -webkit-background-clip: text;
+  color: transparent;
+  z-index: 2;
+  text-shadow: none;
+  transform: translate(
+    calc(var(--hover) * (var(--font-size) * 0.1)),
+    calc(var(--hover) * (var(--font-size) * -0.1))
+  );
+  transition: transform 0.2s;
+}
+
+/* Shared hover wrapper */
+.lightning-hover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Apply flicker to both text + icon when parent is hovered */
+.lightning-hover:hover .lightning-text,
+.lightning-hover:hover .lightning-icon {
+  animation:
+    lightning-flash 0.45s ease-in-out 1,
+    lightning-flash 0.45s ease-in-out 1 0.15s;
+}
+
+/* Ensure the icon uses the primary color like the text */
+.lightning-icon {
+  color: hsl(var(--primary));
+  transition: transform 0.2s ease;
+}
+
+/* Optional */
+.lightning-hover:hover .lightning-icon {
+  /* transform: scale(1.05); */
+}
+
+.lightning-accent {
+  color: hsl(var(--primary));
+}
+
+/* Fluid typography */
+:where(.fluid) {
+  --fluid-min: calc(var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0)));
+  --fluid-max: calc(var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0)));
+  --fluid-preferred: calc(
+    (var(--fluid-max) - var(--fluid-min)) / (var(--font-width-max) - var(--font-width-min))
+  );
+  --fluid-type: clamp(
+    (var(--fluid-min) / 16) * 1rem,
+    ((var(--fluid-min) / 16) * 1rem) -
+      (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) +
+      (var(--fluid-preferred) * var(--variable-unit, 100vi)),
+    (var(--fluid-max) / 16) * 1rem
+  );
+  font-size: var(--fluid-type);
+}
