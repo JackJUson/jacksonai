@@ -15,7 +15,6 @@ import { Content } from "./content"
 import InfoDialog from "./info-dialog"
 import { Loader } from "./loader"
 import { useVibration } from "@/hooks/use-vibrate"
-import { Button } from "./ui/button"
 
 type ChatProps = {
   questions: Question[]

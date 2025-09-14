@@ -12,7 +12,7 @@ type PageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default async function Home(props: PageProps) {
+export default async function Home(_props: PageProps) {
   const questions = await getQuestions()
 
   return (

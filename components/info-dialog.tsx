@@ -1,4 +1,4 @@
-import { Github, Globe, InfoIcon, User } from 'lucide-react';
+import { Github, Globe, InfoIcon } from 'lucide-react';
 import Link from 'next/link';
 import {
   Dialog,
